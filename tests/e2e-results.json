@@ -1,0 +1,74 @@
+[
+  {
+    "id": "T1",
+    "name": "基础输入 x+y=z",
+    "pass": true,
+    "detail": "value=\"x+y=z\" source=\"x+y=z\" previewLen=633"
+  },
+  {
+    "id": "T2",
+    "name": "分数模板与光标定位",
+    "pass": true,
+    "detail": "value=\"\\\\frac{a}{b}\"（光标先落分子、Tab 跳分母）"
+  },
+  {
+    "id": "T3",
+    "name": "嵌套结构 (a+b^2)/c",
+    "pass": true,
+    "detail": "value=\"\\\\frac{a+b^2}{c}\""
+  },
+  {
+    "id": "T4",
+    "name": "3×3 矩阵逐格输入",
+    "pass": true,
+    "detail": "value=\"\\\\begin{pmatrix}1 & 2 & 3\\\\\\\\ 4 & 5 & 6\\\\\\\\ 7 & 8 & 9\\\\end{pmatrix}\""
+  },
+  {
+    "id": "T5",
+    "name": "符号面板分类插入",
+    "pass": true,
+    "detail": "value=\"\\\\ne\\\\alpha\\\\partial\\\\infty\\\\cdot\\\\times\"（顺序=点击顺序，含 ≠/α/∂/∞/·/×）"
+  },
+  {
+    "id": "T6",
+    "name": "图形学公式：透视投影",
+    "pass": true,
+    "detail": "value=\"x_{\\\\mathrm{ndc}}=\\\\frac{d\\\\,x_{\\\\mathrm{view}}}{-z_{\\\\mathrm{view}}}\" previewLen=3171"
+  },
+  {
+    "id": "T7",
+    "name": "复制 LaTeX / Markdown / 行内",
+    "pass": true,
+    "detail": "latex=\"x_{\\\\mathrm{ndc}}=\\\\frac{d\"… md=\"$$x_{\\\\\"… status=\"已复制 行内公式\""
+  },
+  {
+    "id": "T8",
+    "name": "清空（二次确认）与恢复编辑",
+    "pass": true,
+    "detail": "armed=\"确认清空？\" 清空后 value=\"\" 重新输入=\"E=mc^2\""
+  },
+  {
+    "id": "T9a",
+    "name": "长公式·正常视口：无破版 + 源码完整可达 + 预览按需可滚",
+    "pass": true,
+    "detail": "valueMatch=true 源码已同步=true 预览已渲染=true bodyOverflowX=false 源码横向溢出=false 源码滚到底=true 预览溢出=false"
+  },
+  {
+    "id": "T9b",
+    "name": "长公式·窄视口：源码完整可达 + 预览溢出时可真实滚到最右",
+    "pass": true,
+    "detail": "bodyOverflowX=false 源码横向溢出=false 源码滚到底=true 预览溢出=false 溢出时可滚到最右=true"
+  },
+  {
+    "id": "T10a",
+    "name": "MathLive 加载失败 → 明确报错横幅",
+    "pass": true,
+    "detail": "banner=true clearDisabled=true"
+  },
+  {
+    "id": "T10b",
+    "name": "剪贴板受限时有明确反馈（降级成功或失败提示）",
+    "pass": true,
+    "detail": "status=\"已复制 LaTeX 源码\""
+  }
+]

@@ -1,0 +1,91 @@
+{
+  "results": [
+    {
+      "id": "D1",
+      "name": "断网条件下 MathLive 正常加载（mathfield 可升级可用）",
+      "pass": true,
+      "detail": "加载=true"
+    },
+    {
+      "id": "D2",
+      "name": "无 Service Worker / 缓存干扰（净缓存环境）",
+      "pass": true,
+      "detail": "serviceWorker.controller=none"
+    },
+    {
+      "id": "D3",
+      "name": "未发起任何外部（非本机）请求",
+      "pass": true,
+      "detail": "外部尝试=[]"
+    },
+    {
+      "id": "D4",
+      "name": "本机核心资源全部加载成功（无 4xx/5xx；favicon 404 为浏览器自动请求，非核心）",
+      "pass": true,
+      "detail": "本机响应=13 核心异常=[] favicon404=0 请求失败=[]"
+    },
+    {
+      "id": "D5",
+      "name": "键盘输入与预览/源码同步",
+      "pass": true,
+      "detail": "聚焦=true value=\"x+y=z\" 源码=\"x+y=z\" 预览长度=633"
+    },
+    {
+      "id": "D6",
+      "name": "结构模板（分数）光标定位与填充",
+      "pass": true,
+      "detail": "value=\"\\\\frac{a}{b}\""
+    },
+    {
+      "id": "D7",
+      "name": "符号按钮插入",
+      "pass": true,
+      "detail": "value=\"\\\\frac{a}{b\\\\alpha}\""
+    },
+    {
+      "id": "D8",
+      "name": "3×3 矩阵逐格输入",
+      "pass": true,
+      "detail": "value=\"\\\\begin{pmatrix}1 & 2 & 3\\\\\\\\ 4 & 5 & 6\\\\\\\\ 7 & 8 & 9\\\\end{pmatrix\"…"
+    },
+    {
+      "id": "D9",
+      "name": "复制功能（真实剪贴板内容=当前公式）",
+      "pass": true,
+      "detail": "剪贴板=\"\\\\begin{pmatrix}1 & 2 & 3\\\\\\\\ 4 &\"…"
+    },
+    {
+      "id": "D10",
+      "name": "网络审计：全部请求均为本机资源",
+      "pass": true,
+      "detail": "总请求=14（本机） 外部尝试=0 失败=0"
+    }
+  ],
+  "conditions": {
+    "browser": "Edge (msedge channel, headless)",
+    "cache": "全新上下文 + CDP Network.clearBrowserCache + setCacheDisabled",
+    "serviceWorker": "context serviceWorkers: block",
+    "offline": "Playwright route 阻断一切非 127.0.0.1:8642 请求；localhost 保留"
+  },
+  "net": {
+    "total": 14,
+    "urls": [
+      "http://127.0.0.1:8642/",
+      "http://127.0.0.1:8642/vendor/mathlive/mathlive-fonts.css",
+      "http://127.0.0.1:8642/vendor/mathlive/mathlive-static.css",
+      "http://127.0.0.1:8642/css/style.css",
+      "http://127.0.0.1:8642/vendor/mathlive/mathlive.min.js",
+      "http://127.0.0.1:8642/js/app.js",
+      "http://127.0.0.1:8642/vendor/mathlive/fonts/KaTeX_Main-Regular.woff2",
+      "http://127.0.0.1:8642/vendor/mathlive/fonts/KaTeX_Size4-Regular.woff2",
+      "http://127.0.0.1:8642/vendor/mathlive/fonts/KaTeX_Math-Italic.woff2",
+      "http://127.0.0.1:8642/vendor/mathlive/fonts/KaTeX_Size3-Regular.woff2",
+      "http://127.0.0.1:8642/vendor/mathlive/fonts/KaTeX_Size2-Regular.woff2",
+      "http://127.0.0.1:8642/vendor/mathlive/fonts/KaTeX_Main-Bold.woff2",
+      "http://127.0.0.1:8642/vendor/mathlive/fonts/KaTeX_Size1-Regular.woff2",
+      "http://127.0.0.1:8642/vendor/mathlive/fonts/KaTeX_Main-Italic.woff2"
+    ],
+    "externalAttempted": [],
+    "failed": []
+  }
+}

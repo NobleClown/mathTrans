@@ -1,0 +1,20 @@
+[
+  {
+    "id": "P1",
+    "name": "结构面板·1400×900：20 个模板按钮全部完整可见（无裁切、无内部滚动）",
+    "pass": true,
+    "detail": "buttons=20 裁切项=[] 内部滚动=false maxHeight=none bodyOverflowX=false pageHeight=900"
+  },
+  {
+    "id": "P2",
+    "name": "结构面板·1366×768：全部模板按钮完整可见",
+    "pass": true,
+    "detail": "裁切项=[] 内部滚动=false bodyOverflowX=false pageHeight=799"
+  },
+  {
+    "id": "P3",
+    "name": "窄视口 800×640：图形学面板末行滚动可达且可点击",
+    "pass": true,
+    "detail": "buttons=17 lastBottom=693 容器底=790 末行完整可见=true bodyOverflowX=false 点击后 value=\"z_{\\\\mathrm{far}}\""
+  }
+]

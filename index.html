@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Math Input — 数学公式输入器</title>
+  <link rel="stylesheet" href="vendor/mathlive/mathlive-fonts.css">
+  <link rel="stylesheet" href="vendor/mathlive/mathlive-static.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="vendor/mathlive/mathlive.min.js" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+
+  <div id="load-error" class="load-error" hidden>
+    <strong>MathLive 加载失败。</strong>
+    公式编辑器核心库（vendor/mathlive/mathlive.min.js）未能加载，编辑功能不可用。
+    请确认文件存在，并通过本地 HTTP 服务打开本页面（如 <code>python -m http.server</code>）。
+  </div>
+
+  <header class="app-header">
+    <div class="brand">
+      <h1>Math Input</h1>
+      <p class="tagline">点按钮搭结构，填变量，复制 LaTeX — 用于 ChatGPT、Markdown 笔记与技术文档</p>
+    </div>
+    <div class="header-actions">
+      <button id="btn-example" type="button" title="载入一条示例公式（透视投影）">载入示例</button>
+      <button id="btn-clear" type="button" title="清空当前公式（需二次确认）">清空公式</button>
+    </div>
+  </header>
+
+  <main class="workspace">
+
+    <section class="column-left">
+      <div class="panel editor-panel">
+        <div class="panel-title">公式编辑区 <span class="hint">可直接键入；Tab 在结构的空位间跳转</span></div>
+        <div class="mathfield-box">
+          <math-field id="mf" math-virtual-keyboard-policy="manual"
+            placeholder="在此输入，或点击右侧按钮插入结构"></math-field>
+        </div>
+      </div>
+
+      <div class="panel preview-panel">
+        <div class="panel-title">实时预览</div>
+        <div id="preview" class="preview" aria-live="polite"></div>
+        <div id="preview-error" class="preview-error" hidden></div>
+      </div>
+    </section>
+
+    <aside class="column-right panel">
+      <nav class="tabs" role="tablist" aria-label="插入面板">
+        <button id="tab-btn-structures" class="tab is-active" role="tab" aria-selected="true"
+          aria-controls="tab-structures" type="button">结构模板</button>
+        <button id="tab-btn-symbols" class="tab" role="tab" aria-selected="false"
+          aria-controls="tab-symbols" type="button">符号</button>
+        <button id="tab-btn-graphics" class="tab" role="tab" aria-selected="false"
+          aria-controls="tab-graphics" type="button">图形学</button>
+      </nav>
+
+      <div id="tab-structures" class="tab-page is-active" role="tabpanel">
+        <div id="structures-grid" class="tpl-grid"></div>
+      </div>
+
+      <div id="tab-symbols" class="tab-page" role="tabpanel" hidden>
+        <nav class="subtabs" id="symbol-subtabs" aria-label="符号分类"></nav>
+        <div id="symbols-grid" class="sym-grid"></div>
+      </div>
+
+      <div id="tab-graphics" class="tab-page" role="tabpanel" hidden>
+        <div id="graphics-grid" class="tpl-grid"></div>
+        <div class="group-title">坐标空间下标（插入到光标处，附着于前一元素）</div>
+        <div id="graphics-sub-grid" class="sym-grid"></div>
+      </div>
+    </aside>
+  </main>
+
+  <section class="panel source-panel">
+    <div class="panel-title">LaTeX 源码</div>
+    <textarea id="source" readonly spellcheck="false" aria-label="LaTeX 源码"></textarea>
+    <div class="source-actions">
+      <button id="btn-copy-latex" type="button">复制 LaTeX</button>
+      <button id="btn-copy-md" type="button">复制 $$…$$ Markdown</button>
+      <button id="btn-copy-inline" type="button" title="单美元符号定界，适用于行内公式">复制 $…$（行内）</button>
+      <button id="btn-select-source" type="button">全选源码</button>
+      <span id="status" class="status" role="status"></span>
+    </div>
+  </section>
+
+  <footer class="app-footer">
+    本地运行，无后端、无网络请求；公式数据不出本机。核心库 MathLive 0.111.1（本地 vendor 目录）。
+  </footer>
+
+</body>
+</html>

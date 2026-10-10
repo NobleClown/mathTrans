@@ -1,0 +1,9 @@
+# 依赖（playwright-core 仅测试用）
+node_modules/
+
+# MathLive 官方源码副本（仅本地查阅用，运行依赖的是 vendor/mathlive/）
+third_party/
+
+# 会话与临时产物
+.zcode/
+*.log

@@ -1,0 +1,347 @@
+/* ============================================================
+   Math Input — 工程图纸工作台
+   纸白基底 / 墨黑文字 / 单一钴蓝强调 / 等宽源码
+   ============================================================ */
+
+:root {
+  --paper: #f4f2ec;
+  --panel: #fffdf8;
+  --line: #d8d3c4;
+  --line-strong: #b9b2a0;
+  --ink: #22201b;
+  --ink-soft: #6b675c;
+  --accent: #2a5db0;
+  --accent-soft: #e4ecf7;
+  --danger: #b3372e;
+  --danger-soft: #f7e6e4;
+  --ok: #2e7d43;
+  --mono: ui-monospace, Consolas, "Cascadia Mono", Menlo, monospace;
+  --radius: 6px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font: 14px/1.5 system-ui, "Segoe UI", "Microsoft YaHei", sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 12px 16px 8px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ---------- 加载失败横幅 ---------- */
+.load-error {
+  border: 1px solid var(--danger);
+  background: var(--danger-soft);
+  color: var(--danger);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  margin-bottom: 10px;
+}
+.load-error code { font-family: var(--mono); }
+
+/* ---------- 头部 ---------- */
+.app-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+}
+.brand h1 {
+  font-size: 20px;
+  margin: 0;
+  letter-spacing: 0.04em;
+}
+.brand .tagline {
+  margin: 2px 0 0;
+  color: var(--ink-soft);
+  font-size: 12px;
+}
+.header-actions { display: flex; gap: 8px; flex-shrink: 0; }
+
+/* ---------- 通用按钮 ---------- */
+button {
+  font: inherit;
+  color: var(--ink);
+  background: var(--panel);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  padding: 5px 12px;
+  cursor: pointer;
+}
+button:hover { border-color: var(--accent); color: var(--accent); }
+button:active { transform: translateY(1px); }
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+#btn-clear.armed {
+  border-color: var(--danger);
+  background: var(--danger-soft);
+  color: var(--danger);
+  font-weight: 600;
+}
+
+/* ---------- 主区布局 ---------- */
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(320px, 1fr);
+  gap: 12px;
+  align-items: stretch;
+}
+.column-left {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+.preview-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.preview-panel .preview { flex: 1; }
+
+/* ---------- 面板 ---------- */
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+}
+.panel-title {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+}
+.panel-title .hint {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  margin-left: 6px;
+}
+
+/* ---------- 编辑区 ---------- */
+.mathfield-box { min-height: 120px; }
+math-field {
+  display: block;
+  width: 100%;
+  min-height: 110px;
+  font-size: 26px;
+  padding: 8px 10px;
+  background: #fff;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+}
+math-field:focus-within,
+math-field:focus {
+  border-color: var(--accent);
+  outline: 1px solid var(--accent);
+}
+/* 隐藏 MathLive 自带的虚拟键盘切换与无标签菜单按钮：桌面工具，键入与按钮面板是主要输入路径 */
+math-field::part(virtual-keyboard-toggle),
+math-field::part(menu-toggle) {
+  display: none;
+}
+
+/* ---------- 预览 ---------- */
+.preview {
+  min-height: 96px;
+  max-height: 220px;
+  overflow: auto;
+  padding: 12px 10px;
+  font-size: 24px;
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 19px, rgba(42, 93, 176, 0.05) 19px, rgba(42, 93, 176, 0.05) 20px),
+    repeating-linear-gradient(90deg, transparent, transparent 19px, rgba(42, 93, 176, 0.05) 19px, rgba(42, 93, 176, 0.05) 20px),
+    #fff;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius);
+}
+.preview .empty-state {
+  color: var(--ink-soft);
+  font-size: 14px;
+  font-family: system-ui, sans-serif;
+}
+.preview-error {
+  margin-top: 6px;
+  color: var(--danger);
+  background: var(--danger-soft);
+  border: 1px solid var(--danger);
+  border-radius: var(--radius);
+  padding: 6px 10px;
+  font-size: 13px;
+}
+
+/* ---------- 右侧面板（Tab） ---------- */
+.tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 10px;
+}
+.tab {
+  border: 1px solid transparent;
+  border-bottom: none;
+  background: transparent;
+  border-radius: var(--radius) var(--radius) 0 0;
+  padding: 5px 14px;
+  color: var(--ink-soft);
+}
+.tab:hover { color: var(--accent); border-color: transparent; }
+.tab.is-active {
+  background: var(--accent-soft);
+  border-color: var(--line);
+  color: var(--ink);
+  font-weight: 600;
+}
+.tab-page {
+  overflow-y: auto;
+  /* 内容自适应高度：不设固定上限，全部行完整展开（底行不裁切）。
+     窄视口媒体查询内才启用内部滚动；padding-bottom 计入滚动区域，
+     保证末行可完整滚入可视区（现代浏览器 padding 计入 scrollable overflow） */
+  padding-bottom: 12px;
+}
+
+.subtabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+.subtab {
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  color: var(--ink-soft);
+}
+.subtab.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.group-title {
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin: 10px 0 6px;
+  border-top: 1px dashed var(--line);
+  padding-top: 8px;
+}
+
+/* ---------- 模板按钮 ---------- */
+.tpl-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+  gap: 6px;
+}
+.tpl-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 4px 5px;
+  min-height: 64px;
+}
+.tpl-btn .glyph {
+  font-size: 19px;
+  line-height: 1.1;
+  color: var(--ink);
+  pointer-events: none;
+  max-width: 100%;
+  overflow: hidden;
+}
+.tpl-btn .name {
+  font-size: 11px;
+  color: var(--ink-soft);
+  pointer-events: none;
+}
+.tpl-btn:hover { background: var(--accent-soft); }
+.tpl-btn:hover .name { color: var(--accent); }
+
+/* ---------- 符号按钮 ---------- */
+.sym-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(58px, 1fr));
+  gap: 6px;
+}
+.sym-btn {
+  font-family: "KaTeX_Math", "KaTeX_Main", serif;
+  font-style: italic;
+  font-size: 20px;
+  line-height: 1.2;
+  padding: 8px 2px;
+  min-height: 42px;
+}
+.sym-btn.upright {
+  font-style: normal;
+  font-family: "KaTeX_Main", serif;
+}
+.sym-btn:hover { background: var(--accent-soft); }
+
+/* ---------- 源码区 ---------- */
+.source-panel { margin-top: 12px; }
+#source {
+  width: 100%;
+  min-height: 64px;
+  max-height: 140px;
+  resize: vertical;
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  padding: 8px 10px;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+.source-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+.status {
+  margin-left: auto;
+  font-size: 13px;
+  color: var(--accent);
+}
+.status.is-error { color: var(--danger); }
+
+/* ---------- 页脚 ---------- */
+.app-footer {
+  margin-top: auto;
+  padding-top: 10px;
+  font-size: 12px;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+/* ---------- 窄屏 ---------- */
+@media (max-width: 900px) {
+  .workspace { grid-template-columns: 1fr; }
+  .tab-page {
+    max-height: 320px;
+    /* 窄视口内部滚动：渐隐提示 + padding-bottom（计入滚动区）保证末行可完整滚入可视区 */
+    background: linear-gradient(to bottom, transparent calc(100% - 18px), rgba(34, 32, 27, 0.08) 100%) local;
+  }
+}
